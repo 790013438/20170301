@@ -70,18 +70,22 @@ public class ServletClass extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		set response content type
 		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-		String docType="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 "+"Transitional//EN\">\n";
-		String title="Hello(3)";
-		out.println(
-				"<html>\n"+
-				"<head><title>"+title+"</title></head>\n"+
-				"<body>\n"+
-				"<h1>Hello(2)</h1>\n"+
-				"</body></html>");		
+		PrintWriter printWriter=response.getWriter();
+		String title="Using Get Method to Read Form Data";
+		String docType="<!DOCTYPE HTML PUBLIC\"-//w3c//dtd html 4.0 "+"transitional//en\">\n";
+		printWriter.println(docType+"<html>\n"+
+				"<head><title>"+title+"</title></head>"+
+				"<body bgcolor=\"#f0f0f0\">\n"+
+					"<h1 align=\"center\">"+title+"</h1>\n"+
+					"<ul>\n"+
+						"<li><b>First Name</b>:"+request.getParameter("firstName")+"</li>\n"+
+						"<li><b>Last Name</b>:"+request.getParameter("lastName")+"</li>\n"+
+					"</ul>\n"+
+				"</body>"+
+		"</html>"
+				);
 	}
 
 	/**
