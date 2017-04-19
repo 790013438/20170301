@@ -9,4 +9,16 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <!-- 添加用以测试  -->
+  <servlet>
+  <!-- 添加的类名 -->
+  	<servlet-name>ServletClass</servlet-name>
+  <!-- 添加类在的包 -->
+  	<servlet-class>Floyd0404.ServletClass</servlet-class>
+  </servlet>
+  <!-- 添加访问的网址 -->
+  <servlet-mapping>
+  	<servlet-name>ServletClass</servlet-name>
+  	<url-pattern>/20170301/ServletClass</url-pattern>
+  </servlet-mapping>
 </web-app>

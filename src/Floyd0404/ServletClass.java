@@ -30,9 +30,6 @@ public class ServletClass extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		
-		System.out.println("´´½¨");
-//		
 	}
 
 	/**
@@ -84,7 +81,7 @@ public class ServletClass extends HttpServlet {
 				"<head><title>"+title+"</title></head>\n"+
 				"<body>\n"+
 				"<h1>Hello(2)</h1>\n"+
-				"</body></html>");
+				"</body></html>");		
 	}
 
 	/**
