@@ -71,21 +71,7 @@ public class ServletClass extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		set response content type
-		response.setContentType("text/html");
-		PrintWriter printWriter=response.getWriter();
-		String title="Using Get Method to Read Form Data";
-		String docType="<!DOCTYPE HTML PUBLIC\"-//w3c//dtd html 4.0 "+"transitional//en\">\n";
-		printWriter.println(docType+"<html>\n"+
-				"<head><title>"+title+"</title></head>"+
-				"<body bgcolor=\"#f0f0f0\">\n"+
-					"<h1 align=\"center\">"+title+"</h1>\n"+
-					"<ul>\n"+
-						"<li><b>First Name</b>:"+request.getParameter("firstName")+"</li>\n"+
-						"<li><b>Last Name</b>:"+request.getParameter("lastName")+"</li>\n"+
-					"</ul>\n"+
-				"</body>"+
-		"</html>"
-				);
+		doPost(request,response);
 	}
 
 	/**
@@ -104,8 +90,9 @@ public class ServletClass extends HttpServlet {
 				"<body bgcolor=\"#f0f0f0\">\n"+
 					"<h1 align=\"center\">"+title+"</h1>\n"+
 					"<ul>\n"+
-						"<li><b>First Name</b>:"+request.getParameter("firstName")+"</li>\n"+
-						"<li><b>Last Name</b>:"+request.getParameter("lastName")+"</li>\n"+
+						"<li><b>Maths Flag:</b>:"+request.getParameter("maths")+"</li>\n"+
+						"<li><b>Physics Flag:</b>:"+request.getParameter("physics")+"</li>\n"+
+						"<li><b>Chemistry Flag:</b>:"+request.getParameter("chemistry")+"</li>\n"+
 					"</ul>\n"+
 				"</body>"+
 		"</html>"
