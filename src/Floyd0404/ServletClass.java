@@ -2,6 +2,7 @@ package Floyd0404;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -69,31 +70,57 @@ public class ServletClass extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+//	Method to handle GET method request.
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		set response content type
+//		Set response content type
 		response.setContentType("text/html");
 		PrintWriter printWriter=response.getWriter();
-		String title="Using Get Method to Read Form Data";
-		String docType="<!DOCTYPE HTML PUBLIC\"-//w3c//dtd html 4.0 "+"transitional//en\">\n";
+		String title="Reading All Form Parameters";
+		String docType="<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n";
 		printWriter.println(docType+"<html>\n"+
-				"<head><title>"+title+"</title></head>"+
+				"<head><title>"+title+"</title></head>\n"+
 				"<body bgcolor=\"#f0f0f0\">\n"+
 					"<h1 align=\"center\">"+title+"</h1>\n"+
-					"<ul>\n"+
-						"<li><b>First Name</b>:"+request.getParameter("firstName")+"</li>\n"+
-						"<li><b>Last Name</b>:"+request.getParameter("lastName")+"</li>\n"+
-					"</ul>\n"+
-				"</body>"+
-		"</html>"
-				);
+					"<table width=\"100%\" border=\"1\" align=\"center\">\n"+
+						"<tr bgcolor=\"#949494\">\n"+
+							"<th>Param Name</th><th>Param Value(s)</th>\n"+
+						"</tr>\n");
+		Enumeration paramNamesEnumeration=request.getParameterNames();
+		while(paramNamesEnumeration.hasMoreElements()){
+			String paramNameString=(String)paramNamesEnumeration.nextElement();
+			printWriter.print("<tr><td>"+paramNameString+"</td><td>");
+			String[]paramValuesStringArray=request.getParameterValues(paramNameString);
+//			read single valued data
+			if(paramValuesStringArray.length==1){
+				String paramValueString=paramValuesStringArray[0];
+				if(paramValueString.length()==0){
+					printWriter.println("<i>No Value</i>");
+				}else{
+					printWriter.println(paramValueString);
+				}
+			}else{
+//				read multiple valued data
+				printWriter.println("<ul>");
+				for(int i=0;i<paramValuesStringArray.length;i++){
+					printWriter.println("<li>"+paramValuesStringArray[i]+"</li>");
+				}
+				printWriter.println("</ul>");
+			}
+		}
+		printWriter.println("</tr>"
+					+ "</table>"+
+				"</body>\n"+
+		"</html>\n"
+		);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+//	method to handle Post method request.
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		doGet(request, response);
+		doGet(request, response);
 //		set response content type
 		response.setContentType("text/html");
 		PrintWriter printWriter=response.getWriter();
