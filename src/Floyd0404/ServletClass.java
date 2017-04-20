@@ -2,7 +2,9 @@ package Floyd0404;
 //import required java libraries
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -72,31 +74,35 @@ public class ServletClass extends HttpServlet {
 	 */
 //	Method to handle GET method request.
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Set response content type
+//		set refresh,auto load time as 5 seconds
+		response.setIntHeader("Refresh",5);
+//		set response content type
 		response.setContentType("text/html");
+//		get current time
+		Calendar calendar=new GregorianCalendar();
+		String am_pmString;
+		int hourInt=calendar.get(Calendar.HOUR);
+		int minuteInt=calendar.get(Calendar.MINUTE);
+		int secondInt=calendar.getMaximum(Calendar.SECOND);
+		if(calendar.get(Calendar.AM_PM)==0){
+			am_pmString="AM";
+		}else{
+			am_pmString="PM";
+		}
+		String CT=hourInt+":"+minuteInt+":"+secondInt+" "+am_pmString;
 		PrintWriter printWriter=response.getWriter();
-		String title="HTTP Header Request Example";
-		String docType="<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">";
+		String title="Auto Refresh Header Setting";
+		String docType="<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n";
 		printWriter.println(docType+
 				"<html>\n"+
-				"<head><title>"+title+"</title></head>\n"+
+				"<head>\n"+
+					"<title>"+title+"</title>\n"+
+				"</head>\n"+
 				"<body bgcolor=\"#f0f0f0\">\n"+
-					"<h1 align=\"center\">"+title+"</h1>"+
-					"<table width=\"100%\" border=\"1\" align=\"center\">\n"+
-						"<tr bgcolor=\"#949494\">\n"+
-							"<th>Header Name</th><th>Header Value(s)</th>\n"+
-						"</tr>");
-		Enumeration headerNamesEnumeration=request.getHeaderNames();
-		while(headerNamesEnumeration.hasMoreElements()){
-			String paramNameString=(String)headerNamesEnumeration.nextElement();
-			printWriter.print("<tr><td>"+paramNameString+"</td>");
-			String paramValueString=request.getHeader(paramNameString);
-			printWriter.println("<td>"+paramValueString+"</td></tr>");
-		}
-		printWriter.println(
-					"</table>\n"+
+					"<h1 align=\"center\">"+title+"</h1>\n"+
+					"<p>Current Time is:"+CT+"</p>\n"+
 				"</body>\n"+
-				"</html>\n");
+				"</html>\n");		
 	}
 
 	/**
