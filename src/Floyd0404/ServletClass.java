@@ -1,5 +1,5 @@
 package Floyd0404;
-
+//import required java libraries
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -75,43 +75,28 @@ public class ServletClass extends HttpServlet {
 //		Set response content type
 		response.setContentType("text/html");
 		PrintWriter printWriter=response.getWriter();
-		String title="Reading All Form Parameters";
-		String docType="<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n";
-		printWriter.println(docType+"<html>\n"+
+		String title="HTTP Header Request Example";
+		String docType="<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">";
+		printWriter.println(docType+
+				"<html>\n"+
 				"<head><title>"+title+"</title></head>\n"+
 				"<body bgcolor=\"#f0f0f0\">\n"+
-					"<h1 align=\"center\">"+title+"</h1>\n"+
+					"<h1 align=\"center\">"+title+"</h1>"+
 					"<table width=\"100%\" border=\"1\" align=\"center\">\n"+
 						"<tr bgcolor=\"#949494\">\n"+
-							"<th>Param Name</th><th>Param Value(s)</th>\n"+
-						"</tr>\n");
-		Enumeration paramNamesEnumeration=request.getParameterNames();
-		while(paramNamesEnumeration.hasMoreElements()){
-			String paramNameString=(String)paramNamesEnumeration.nextElement();
-			printWriter.print("<tr><td>"+paramNameString+"</td><td>");
-			String[]paramValuesStringArray=request.getParameterValues(paramNameString);
-//			read single valued data
-			if(paramValuesStringArray.length==1){
-				String paramValueString=paramValuesStringArray[0];
-				if(paramValueString.length()==0){
-					printWriter.println("<i>No Value</i>");
-				}else{
-					printWriter.println(paramValueString);
-				}
-			}else{
-//				read multiple valued data
-				printWriter.println("<ul>");
-				for(int i=0;i<paramValuesStringArray.length;i++){
-					printWriter.println("<li>"+paramValuesStringArray[i]+"</li>");
-				}
-				printWriter.println("</ul>");
-			}
+							"<th>Header Name</th><th>Header Value(s)</th>\n"+
+						"</tr>");
+		Enumeration headerNamesEnumeration=request.getHeaderNames();
+		while(headerNamesEnumeration.hasMoreElements()){
+			String paramNameString=(String)headerNamesEnumeration.nextElement();
+			printWriter.print("<tr><td>"+paramNameString+"</td>");
+			String paramValueString=request.getHeader(paramNameString);
+			printWriter.println("<td>"+paramValueString+"</td></tr>");
 		}
-		printWriter.println("</tr>"
-					+ "</table>"+
+		printWriter.println(
+					"</table>\n"+
 				"</body>\n"+
-		"</html>\n"
-		);
+				"</html>\n");
 	}
 
 	/**
